@@ -23,12 +23,13 @@ def get_valid_word():
 def main():
 
     used_letter = []
+    lives = 5 
     # get a valid word
     word = get_valid_word()
     # slice the word into letters
     word_letters = []
     word_letters.extend(word)
-    while (len(word_letters) > 0):
+    while (len(word_letters) > 0 and lives != 0):
         # Get user guess
         user_input = input(f'Choose a letter : ').upper()
         # Check the user guess
@@ -41,14 +42,21 @@ def main():
             # Deal with multiple occurences
             while user_input in word_letters:
                 word_letters.remove(user_input)
+        else:
+            lives = lives - 1
 
         # Display letter used
         print("Letter used : ", ' '.join(used_letter))
+        # Display life left
+        print(f'You have {lives} lives left')
         # Display the word
-        word_display = [letter if letter in used_letter else '_' for letter in word ]
-        print("Word : ", " ".join(word_display))
+        word_display = [letter if letter in used_letter else '_' for letter in word]
+        print("Word : ", " ".join(word_display), "\n")
     
-    print("Well done, you found the word : ", word.upper())
+    if lives > 0:
+        print("Well done, you found the word : ", word.upper())
+    else:
+        print(f'You lost, the word was {word}')
 
     
 
